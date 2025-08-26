@@ -15,15 +15,13 @@ pub fn main() -> Nil {
   case path {
     None -> echo "No path found :("
     Some(nodes) ->
-      "Found path:\n"
+      "Found path: "
       <> nodes
       |> list.map(fn(node) { node.state })
       |> list.reverse()
-      |> string.join("\n")
+      |> string.join(" ")
   }
   |> io.println()
-
-  Nil
 }
 
 fn tree_search(
@@ -42,8 +40,13 @@ fn tree_search(
       False -> {
         let children = node |> node.expand(successor_fn)
         let fringe = my_queue.insert_all(fringe, children)
-        echo "Fringe: "
-          <> fringe |> list.map(fn(node) { node.state }) |> string.join(" ")
+        {
+          "Fringe: "
+          <> fringe
+          |> list.map(fn(node) { node.state })
+          |> string.join(" ")
+        }
+        |> io.println
         #(fringe, None)
       }
     }
