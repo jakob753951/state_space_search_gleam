@@ -1,37 +1,27 @@
 import gleam/list
 import gleam/option.{type Option, None, Some}
-import gleam/string
 
-pub type Queue(t) =
-  List(t)
+pub type Queue(t) {
+  Queue(elements: List(t))
+}
 
 pub fn new() -> Queue(t) {
-  []
+  Queue([])
 }
 
 pub fn insert(queue: Queue(t), element: t) -> Queue(t) {
-  queue |> list.append([element])
+  Queue(..queue, elements: queue.elements |> list.append([element]))
 }
 
 pub fn pop_first(queue: Queue(t)) -> Option(#(Queue(t), t)) {
-  case queue {
-    [head, ..rest] -> Some(#(rest, head))
+  case queue.elements {
+    [head, ..rest] -> Some(#(Queue(rest), head))
     [] -> None
   }
 }
 
 pub fn insert_all(queue: Queue(t), elements: List(t)) -> Queue(t) {
-  list.append(queue, elements)
-}
-
-pub fn map(queue: Queue(t), with function: fn(t) -> a) -> Queue(a) {
-  queue
-  |> list.map(function)
-}
-
-pub fn to_string(queue: Queue(String)) -> String {
-  queue
-  |> string.join("\n")
+  list.fold(elements, queue, insert)
 }
 
 pub fn each_and_update(

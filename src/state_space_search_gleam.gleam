@@ -42,7 +42,7 @@ fn tree_search(
         let fringe = my_queue.insert_all(fringe, children)
         {
           "Fringe: "
-          <> fringe
+          <> fringe.elements
           |> list.map(fn(node) { node.state })
           |> string.join(" ")
         }
