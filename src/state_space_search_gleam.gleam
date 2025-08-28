@@ -29,7 +29,7 @@ fn tree_search(
   goal_state: State,
   successor_fn: fn(State) -> List(State),
 ) -> Option(List(Node(State))) {
-  let fringe = my_queue.new()
+  let fringe = my_queue.new(my_queue.FirstInFirstOut)
   let initial_node = node.new(initial_state)
   let fringe = fringe |> my_queue.insert(initial_node)
   fringe
