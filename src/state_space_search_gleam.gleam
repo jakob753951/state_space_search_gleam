@@ -14,9 +14,10 @@ pub fn main() -> Nil {
 
   case path {
     None -> echo "No path found :("
-    Some(nodes) ->
+    Some(goal_node) ->
       "Found path: "
-      <> nodes
+      <> goal_node
+      |> node.path()
       |> list.map(fn(node) { node.state })
       |> list.reverse()
       |> string.join(" ")
@@ -28,7 +29,7 @@ fn tree_search(
   initial_state: State,
   goal_state: State,
   successor_fn: fn(State) -> List(State),
-) -> Option(List(Node(State))) {
+) -> Option(Node(State)) {
   let fringe = my_queue.new(my_queue.FirstInFirstOut)
   let initial_node = node.new(initial_state)
   let fringe = fringe |> my_queue.insert(initial_node)
@@ -36,7 +37,7 @@ fn tree_search(
   |> my_queue.each_and_update(fn(fringe) {
     let assert Some(#(fringe, node)) = fringe |> my_queue.pop_first()
     case node.state == goal_state {
-      True -> #(fringe, Some(node |> node.path()))
+      True -> #(fringe, Some(node))
       False -> {
         let children = node |> node.expand(successor_fn)
         let fringe = my_queue.insert_all(fringe, children)
