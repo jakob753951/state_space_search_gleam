@@ -10,7 +10,12 @@ pub fn main() -> Nil {
   let initial_state = "A"
   let goal_state = "J"
 
-  let path = tree_search(initial_state, goal_state, successor_fn)
+  let path =
+    tree_search(
+      from: initial_state,
+      goal_state:,
+      successor_fn:,
+    )
 
   case path {
     None -> echo "No path found :("
@@ -26,9 +31,9 @@ pub fn main() -> Nil {
 }
 
 fn tree_search(
-  initial_state: State,
-  goal_state: State,
-  successor_fn: fn(State) -> List(State),
+  from initial_state: State,
+  goal_state goal_state: State,
+  successor_fn successor_fn: fn(State) -> List(State),
 ) -> Option(Node(State)) {
   let fringe = my_queue.new(my_queue.FirstInFirstOut)
   let initial_node = node.new(initial_state)
