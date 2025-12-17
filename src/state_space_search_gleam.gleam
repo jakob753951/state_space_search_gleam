@@ -7,8 +7,8 @@ import node.{type Node}
 import state.{type State}
 
 pub fn main() -> Nil {
-  let initial_state = "A"
-  let goal_state = "J"
+  let initial_state = "you"
+  let goal_state = "out"
 
   let path =
     tree_search(
@@ -54,16 +54,16 @@ fn tree_search(
 
 fn successor_fn(state: State) -> List(State) {
   case state {
-    "A" -> ["B", "C"]
-    "B" -> ["D", "E"]
-    "C" -> ["F", "G"]
-    "D" -> []
-    "E" -> []
-    "F" -> []
-    "G" -> ["H", "I", "J"]
-    "H" -> []
-    "I" -> []
-    "J" -> []
+    "aaa" -> ["you", "hhh"]
+    "you" -> ["bbb", "ccc"]
+    "bbb" -> ["ddd", "eee"]
+    "ccc" -> ["ddd", "eee", "fff"]
+    "ddd" -> ["ggg"]
+    "eee" -> ["out"]
+    "fff" -> ["out"]
+    "ggg" -> ["out"]
+    "hhh" -> ["ccc", "fff", "iii"]
+    "iii" -> ["out"]
     _ -> []
   }
 }
