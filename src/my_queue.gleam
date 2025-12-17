@@ -46,10 +46,5 @@ pub fn each_and_update(
   each: fn(Queue(t)) -> #(Queue(t), Option(result)),
 ) -> Option(result) {
   let #(new_fringe, result) = each(queue)
-  case result {
-    Some(result) -> Some(result)
-    None -> {
-      each_and_update(new_fringe, each)
-    }
-  }
+  option.lazy_or(result, fn() { each_and_update(new_fringe, each) })
 }
