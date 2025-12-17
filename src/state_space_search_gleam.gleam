@@ -13,7 +13,7 @@ pub fn main() -> Nil {
   let path =
     tree_search(
       from: initial_state,
-      goal_state:,
+      is_goal: fn(state) { state == goal_state },
       successor_fn:,
     )
 
@@ -32,7 +32,7 @@ pub fn main() -> Nil {
 
 fn tree_search(
   from initial_state: State,
-  goal_state goal_state: State,
+  is_goal is_goal: fn(State) -> Bool,
   successor_fn successor_fn: fn(State) -> List(State),
 ) -> Option(Node(State)) {
   let fringe = my_queue.new(my_queue.FirstInFirstOut)
@@ -41,7 +41,7 @@ fn tree_search(
   fringe
   |> my_queue.each_and_update(fn(fringe) {
     let assert Some(#(fringe, node)) = fringe |> my_queue.pop_first()
-    case node.state == goal_state {
+    case is_goal(node.state) {
       True -> #(fringe, Some(node))
       False -> {
         let children = node |> node.expand(successor_fn)
