@@ -40,13 +40,6 @@ fn tree_search(
       False -> {
         let children = node |> node.expand(successor_fn)
         let fringe = my_queue.insert_all(fringe, children)
-        {
-          "Fringe: "
-          <> fringe.elements
-          |> list.map(fn(node) { node.state })
-          |> string.join(" ")
-        }
-        |> io.println
         #(fringe, None)
       }
     }
