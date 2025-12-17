@@ -11,7 +11,7 @@ pub fn new(initial_state: s) -> Node(s) {
 
 pub fn path(node: Node(s)) -> List(Node(s)) {
   case node.parent_node {
-    None -> [node] 
+    None -> [node]
     Some(parent) -> [node, ..path(parent)]
   }
 }
