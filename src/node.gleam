@@ -6,7 +6,7 @@ pub type Node(s) {
 }
 
 pub fn new(initial_state: s) -> Node(s) {
-  Node(initial_state, None, 0)
+  Node(state: initial_state, parent_node: None, depth: 0)
 }
 
 pub fn path(node: Node(s)) -> List(Node(s)) {
